@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/icomoon.css' %}">
+    <title>Practice</title>
+  </head>
+  <body class="main">
+    <div class="wrapper">
+      <div class="header">
+        <div class="container-fluid">
+          <div class="header-content">
+            <div class="logo">
+              <a href="#">
+                <img src="{% static 'img/logo.png' %}" alt="logo" />
+                <div class="text-wrap">Nepal Bharat<br />Maitri Hospital</div>
+              </a>
+            </div>
+            <div class="nav-list">
+              <ul class="nav-list">
+                <li>
+                  <a href="#">Test</a>
+                   <form class="hero-menu" method='POST'>
+                     {% csrf_token %}
+                    {% for test in test %}
+                    <div class="category-block">
+                      <ul class="dropdown-list">
+                        <li>
+                          <a href="#"><h4 data-modal-target="menu-test-popup">
+                              {{test.name|title}}
+                            </h4></a>
+                        </li>
+                        {% for subtest in subtest %}
+                        {% if subtest.test_id == test.id %}  
+                           <li>
+                            <div class="checkbox-group">
+                              <input type="checkbox" id="aUniqueName"
+                              value="example" name="{{subtest.id}}" checked/>
+                              <label for="aUniqueName">
+                               {{subtest.name|title}}
+                              </label>
+                            </div>
+                          </li>
+                          {% endif %} 
+
+                        {% endfor %}
+                        
+                       
+                      </ul>
+                    </div>
+                    {% endfor %}
+                   
+                   
+                    <button class="button">Generate Report</button>
+                  </form>
+                </li>
+                <li data-modal-target="test-popup">
+                  <a class="test-popup-toggler" href="#">Add Test</a>
+                </li>
+                <li data-modal-target="menu-test-popup">
+                  <a class="test-popup-toggler" href="#">Add SubTest</a>
+                </li>
+                <li><a href="#">Report</a></li>
+                <li><a href="#">Patient</a></li>
+                <li><a href="#">Log Out</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="page-content">
+        <div class="header-block">
+          <h2>About Us</h2>
+        </div>
+        <div class="text-block">
+          <p>
+            NBM Hospital is under construction and will have 100 beds facility.
+            In the near future, it will be expanded to Medical Institution to
+            provide H. A. , Staff Nurse, Pharmacist etc. and ultimately to
+            Medical College that will produce MBBS doctors. Every year we have
+            planned to add 100 beds to our hospital making it 500 beds
+            multi-specialty Medical College in five years. This will help to
+            meet the increasing demand of qualified manpower of health sector of
+            the nation.
+          </p>
+          <p>
+            The Hospital will be expanded outside the valley as NBM branch
+            hospitals, each branch consisting of 15 beds. The priority for
+            establishing such branch hospitals will be given to Himalayan and
+            hilly districts /communities where no hospital exists. The mobile
+            hospitals will also be launched in emergency cases or to provide the
+            health services to remote areas
+          </p>
+        </div>
+      </div>
+      <div class="footer">
+        <div class="container-fluid">
+          <ul class="footer-list">
+            <li>Lalitpur,Nepal</li>
+            <li><a href="tel:01-2312133">01-2312133</a></li>
+            <li><a href="tel:01-2212121">01-2212121</a></li>
+            <li>
+              <a
+                href="mailto:&#112;&#097;&#116;&#097;&#110;&#104;&#111;&#115;&#112;&#105;&#116;&#097;&#108;&#064;&#103;&#109;&#097;&#105;&#108;&#046;&#099;&#111;&#109;"
+                >&#112;&#097;&#116;&#097;&#110;&#104;&#111;&#115;&#112;&#105;&#116;&#097;&#108;&#064;&#103;&#109;&#097;&#105;&#108;&#046;&#099;&#111;&#109;</a
+              >
+            </li>
+            <li>
+              <a
+                href="mailto:&#112;&#097;&#116;&#097;&#110;&#104;&#111;&#115;&#112;&#105;&#116;&#097;&#108;&#064;&#103;&#109;&#097;&#105;&#108;&#046;&#099;&#111;&#109;"
+                >&#112;&#097;&#116;&#097;&#110;&#104;&#111;&#115;&#112;&#105;&#116;&#097;&#108;&#064;&#103;&#109;&#097;&#105;&#108;&#046;&#099;&#111;&#109;</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div id="test-popup">
+      <form method="POST">
+        {% csrf_token %}
+        <div class="icon-holder">
+          <i data-modal-target="test-popup" class="icon-cross"></i>
+        </div>
+        <div class="input-group">
+          <input type="text" name="name" placeholder="Test name" />
+        </div>
+        <div class="button-group">
+          <button type="submit">Submit</button>
+        </div>
+      </form>
+    </div>
+    <div id="menu-test-popup">
+      <form method="POST">
+        {% csrf_token %}
+        <div class="icon-holder">
+          <i data-modal-target="menu-test-popup" class="icon-cross"></i>
+        </div>
+        <div class="input-group">
+          <label for="test-select">Test Name:</label>
+          <select name="choices" id="test-select">
+            {% for test in test %}
+            <option value="{{test.name}}" name='choices'>{{test.name|title}}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="input-group">
+          <input type="text" name="subtest" placeholder="SubTest name" />
+        </div>
+        <div class="input-group">
+          <input type="text" name="reference" placeholder="Reference rate" />
+        </div>
+        <div class="input-group">
+          <input type="text" name="unit" placeholder="Unit" />
+        </div>
+        <div class="button-group">
+          <button type="submit">Submit</button>
+        </div>
+      </form>
+    </div>
+    <script src="{% static 'js/main.js' %}"></script>
+  </body>
+</html>
