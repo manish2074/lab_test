@@ -35,19 +35,17 @@ class Subtest(models.Model):
 #         return self.name
 
 
-# class Patient(models.Model):
-#     GENDER = (("0","M"),("1","F"))
-#     name = models.CharField(max_length=100)
-#     address = models.CharField(max_length=100)
-#     age = models.IntegerField()
-#     gender = models.CharField(choices=GENDER,max_length=2)
-#     test = models.ManyToManyField(Test,related_name='patient')
-#     doctor = models.ManyToManyField(Doctor,related_name='patientdoct')
-#     visited = models.DateTimeField(auto_now_add=True)
+class Patient(models.Model):
+    GENDER = (("0","M"),("1","F"))
+    name = models.CharField(max_length=100)
+    address = models.CharField(max_length=100)
+    age = models.IntegerField()
+    gender = models.CharField(choices=GENDER,max_length=2)
+    phone = models.IntegerField()
 
-#     def __str__(self):
-#         return self.name
+    def __str__(self):
+        return self.name
 
-#     def get_absolute_url(self):
-#         return reverse("create_form", kwargs={"pk": self.pk})
+    # def get_absolute_url(self):
+    #     return reverse("create_form", kwargs={"pk": self.pk})
     

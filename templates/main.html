@@ -24,8 +24,7 @@
               <ul class="nav-list">
                 <li>
                   <a href="#">Test</a>
-                   <form class="hero-menu" method='POST'>
-                     {% csrf_token %}
+                   <form class="hero-menu" action="{% url 'report' %}" method='GET'>
                     {% for test in test %}
                     <div class="category-block">
                       <ul class="dropdown-list">
@@ -39,7 +38,7 @@
                            <li>
                             <div class="checkbox-group">
                               <input type="checkbox" id="aUniqueName"
-                              value="example" name="{{subtest.id}}" checked/>
+                              value="{{subtest.name}}" name="selected"/>
                               <label for="aUniqueName">
                                {{subtest.name|title}}
                               </label>
@@ -53,9 +52,10 @@
                       </ul>
                     </div>
                     {% endfor %}
-                   
+                    
                    
                     <button class="button">Generate Report</button>
+                    <input name="form_type" value="third-form" type="hidden">
                   </form>
                 </li>
                 <li data-modal-target="test-popup">
@@ -128,9 +128,12 @@
         <div class="input-group">
           <input type="text" name="name" placeholder="Test name" />
         </div>
+        
         <div class="button-group">
           <button type="submit">Submit</button>
         </div>
+        <input name="form_type" value="first-form" type="hidden">
+       
       </form>
     </div>
     <div id="menu-test-popup">
@@ -159,6 +162,7 @@
         <div class="button-group">
           <button type="submit">Submit</button>
         </div>
+        <input name="form_type" value="second-form" type="hidden">
       </form>
     </div>
     <script src="{% static 'js/main.js' %}"></script>
